@@ -10,6 +10,7 @@ public class UnitConfig : ScriptableObject
     [SerializeField, Min(0)] private float _health;
     [SerializeField, Min(0)] private float _speed;
     [SerializeField, Min(0)] private float _armor;
+    [SerializeField, Min(0)] private float _strafeSpeed;
 
     public string UnitName => _unitName;
 
@@ -18,4 +19,6 @@ public class UnitConfig : ScriptableObject
     public float Speed => _speed;
 
     public float Armor => _armor;
+
+    public float StrafeSpeed => _strafeSpeed;
 }

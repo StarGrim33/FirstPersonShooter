@@ -2,14 +2,9 @@ using UnityEngine;
 
 public class Player : Unit
 {
-    private CharacterController _charachterController;
+    [SerializeField] private CharacterController _charachterController;
 
     public UnitConfig BaseConfig => Config;
-
-    private void Awake()
-    {
-        _charachterController = GetComponent<CharacterController>();
-    }
 
     private void OnDrawGizmos()
     {
