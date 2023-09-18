@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bac68aaa59cf8a4f82deeb0c9206860, type: 3}
-  m_Name: PlayerConfig
+  m_Name: BoxConfig
   m_EditorClassIdentifier: 
-  _unitName: Striker
+  _unitName: 
   _health: 100
-  _speed: 10
+  _speed: 0
   _armor: 0
-  _strafeSpeed: 3
-  _jumpForce: 8
-  _jumpCooldown: 0.2
+  _strafeSpeed: 0
+  _jumpForce: 0
+  _jumpCooldown: 0

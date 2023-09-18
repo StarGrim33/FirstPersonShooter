@@ -6,19 +6,21 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private float _horizontalFloatSensetivity;
     [SerializeField] private float _verticalFloatSensetivity;
-    [SerializeField] private float _verticalMinAngle = -89f;
-    [SerializeField] private float _verticalMaxAngle = 89f;
 
     private CharacterController _characterController;
-    private Vector3 _verticalVelocity;
+    private Transform _transform;
     private IInput _input;
+    private float _verticalMinAngle = -89f;
+    private float _verticalMaxAngle = 89f;
+
+    [Header("Config")]
+    private Vector3 _verticalVelocity;
     private Player _config;
     private float _speed;
     private float _strafeSpeed;
     private float _cameraAngle = 0;
-    private Transform _transform;
-    private float _jumpForce = 7;
-    private float _jumpCooldown = 0.2f;
+    private float _jumpForce;
+    private float _jumpCooldown;
     private float _lastJumpTime;
 
     [Inject]
@@ -32,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         _config = GetComponent<Player>();
         _speed = _config.Config.Speed;
+        _jumpForce = _config.Config.JumpSpeed;
+        _jumpCooldown = _config.Config.JumpCooldown;
         _strafeSpeed = _config.Config.StrafeSpeed;
         _cameraAngle = _cameraTransform.localEulerAngles.x;
         _transform = transform;
