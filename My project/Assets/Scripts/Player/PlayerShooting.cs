@@ -3,8 +3,8 @@ using UnityEngine;
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private Shotgun _shotGun;
-    private IWeapon _weapon;
     [SerializeField] private Transform _cameraPosition;
+    private IWeapon _weapon;
     private Coroutine _coroutine;
 
     private void Start()

@@ -11,9 +11,9 @@ public class AmmoViewer : MonoBehaviour
         _shotgun.AmmoChanged += OnAmmoChanged;
     }
 
-    private void OnAmmoChanged(int arg0)
+    private void OnAmmoChanged(int value)
     {
-        _text.text = arg0.ToString() + "'/'" + _shotgun.MaxAmmo.ToString();
+        _text.text = value.ToString() + '/' + _shotgun.MaxAmmo.ToString();
     }
 
     private void OnDisable()
@@ -23,6 +23,6 @@ public class AmmoViewer : MonoBehaviour
 
     private void Start()
     {
-        _text.text = _shotgun.CurrentAmmo.ToString() + "'/'" + _shotgun.MaxAmmo.ToString();
+        _text.text = _shotgun.CurrentAmmo.ToString() + '/' + _shotgun.MaxAmmo.ToString();
     }
 }
