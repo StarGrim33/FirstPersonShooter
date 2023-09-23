@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private float _strafeSpeed;
     private float _cameraAngle = 0;
     private float _jumpForce;
-    private float _jumpCooldown;
+    private float _jumpCooldown = 0.5f;
     private float _lastJumpTime;
 
     [Inject]

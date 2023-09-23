@@ -1,38 +1,37 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
-public class ObjectPool<T> where T : MonoBehaviour
+public class ObjectPool
 {
-    private readonly List<T> _decals = new List<T>();
+    private readonly List<GameObject> _decals = new ();
+    private readonly List<GameObject> _bulletShells = new();
+    private readonly PoolableFactory _factory;
 
     [Inject]
-    public ObjectPool(GameObject prefab, int amount)
+    public ObjectPool(PoolableFactory factory, int decalsAmount, int shellsAmount)
     {
-        CreateObjects(amount, prefab);
+        _factory = factory;
+        _decals = _factory.CreateObjects(PoolableObjects.Decal, decalsAmount);
+        _bulletShells = _factory.CreateObjects(PoolableObjects.Shell, shellsAmount);
     }
 
-    public T GetObject()
+    public GameObject GetObject(PoolableObjects poolableObjects)
     {
-        foreach (var obj in _decals)
-        {
-            if (obj.gameObject.activeSelf == false)
-            {
-                obj.gameObject.SetActive(true);
-                return obj;
-            }
+        switch (poolableObjects) 
+        { 
+            case PoolableObjects.Decal:
+                var decal = _decals.FirstOrDefault(x => x != null);
+                decal.SetActive(true);
+                return decal;
+
+            case PoolableObjects.Shell:
+                var instance = _bulletShells.FirstOrDefault(x => x != null);
+                instance.SetActive(true);
+                return instance;
         }
 
         return null;
-    }
-
-    private void CreateObjects(int count, GameObject prefab)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            var gameObject = Object.Instantiate(prefab).GetComponent<T>();
-            gameObject.gameObject.SetActive(false);
-            _decals.Add(gameObject);
-        }
     }
 }

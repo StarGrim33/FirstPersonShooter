@@ -9,7 +9,7 @@ public class Shotgun : MonoBehaviour, IWeapon
     [SerializeField] private Transform _decal;
     [SerializeField] private float _offSet;
 
-    private ObjectPool<Decal> _objectPool;
+    private ObjectPool _objectPool;
     private int _damage = 10;
     private int _ammo = 6;
     private int _currentAmmo;
@@ -23,8 +23,10 @@ public class Shotgun : MonoBehaviour, IWeapon
 
     public event UnityAction Reloading;
 
+    public event UnityAction Shooting;
+
     [Inject]
-    private void Construct(ObjectPool<Decal> objectPool)
+    private void Construct(ObjectPool objectPool)
     {
         _objectPool = objectPool;
     }
@@ -39,13 +41,14 @@ public class Shotgun : MonoBehaviour, IWeapon
     {
         _currentAmmo--;
         AmmoChanged?.Invoke(CurrentAmmo);
+        Shooting?.Invoke();
 
         if(Physics.Raycast(startPosition, direction, out RaycastHit hit, 50, _layerMask, QueryTriggerInteraction.Ignore))
         {
-            Decal decal = _objectPool.GetObject();
+            var decal = _objectPool.GetObject(PoolableObjects.Decal);
             decal.gameObject.transform.position = hit.point + hit.normal * _offSet;
             decal.gameObject.transform.LookAt(hit.point);
-            
+            decal.transform.rotation = Quaternion.LookRotation(hit.normal);
 
             if (hit.collider.TryGetComponent<IDamageable>(out IDamageable component))
             {
