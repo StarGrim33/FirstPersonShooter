@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &79032009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 79032011}
+  - component: {fileID: 79032010}
+  m_Layer: 0
+  m_Name: ObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &79032010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79032009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a04d9308a3080884d917a0cdea59b218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _decalPrefab: {fileID: 838767316002772839, guid: 62b003cfa3f4edb4fbbe499e6875a167,
+    type: 3}
+  _bulletShellPrefab: {fileID: 4921142183222675825, guid: 3a2437def4ec0ad40af5a9bbdf8d8a20,
+    type: 3}
+  _parent: {fileID: 79032011}
+--- !u!4 &79032011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79032009}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.991401, y: -53.22322, z: 188.94473}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &99043664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,6 +1151,7 @@ MonoBehaviour:
     RefIds:
     - rid: 4827148856270258194
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &820531646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2416,6 +2466,7 @@ MonoBehaviour:
     RefIds:
     - rid: 4827148856270258193
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &1156470287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3863,12 +3914,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79c607cb34566d4e83666b2b7d59b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _decalPrefab: {fileID: 838767316002772839, guid: 62b003cfa3f4edb4fbbe499e6875a167,
-    type: 3}
   _decalAmount: 20
-  _shellPrefab: {fileID: 4921142183222675825, guid: 3a2437def4ec0ad40af5a9bbdf8d8a20,
-    type: 3}
   _shellAmount: 20
+  _poolFactory: {fileID: 79032010}
 --- !u!114 &2111147751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4059,3 +4107,4 @@ SceneRoots:
   - {fileID: 854867146}
   - {fileID: 880546403}
   - {fileID: 1448168437}
+  - {fileID: 79032011}

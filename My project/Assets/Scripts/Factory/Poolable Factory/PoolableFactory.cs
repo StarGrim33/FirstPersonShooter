@@ -1,18 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 public class PoolableFactory : MonoBehaviour
 {
-    private GameObject _decalPrefab;
-    private GameObject _bulletShellPrefab;
-
-    [Inject]
-    private void Construct(GameObject decalPrefab, GameObject bulletShellPrefab)
-    {
-        _decalPrefab = decalPrefab;
-        _bulletShellPrefab = bulletShellPrefab;
-    }
+    [SerializeField] private GameObject _decalPrefab;
+    [SerializeField] private GameObject _bulletShellPrefab;
+    [SerializeField] private Transform _parent;
 
     public List<GameObject> CreateObjects(PoolableObjects poolableObjects, int amount)
     {
@@ -24,7 +17,7 @@ public class PoolableFactory : MonoBehaviour
 
                 for(int i = 0; i < amount; i++)
                 {
-                    var instance = Instantiate(_decalPrefab, transform.parent);
+                    var instance = Instantiate(_decalPrefab, _parent);
                     instance.SetActive(false);
                     objects.Add(instance);
                 }
@@ -35,7 +28,9 @@ public class PoolableFactory : MonoBehaviour
 
                 for( int i = 0; i < amount; i++)
                 {
-                    objects.Add(_bulletShellPrefab);
+                    var instance = Instantiate(_bulletShellPrefab, _parent);
+                    instance.SetActive(false);
+                    objects.Add(instance);
                 }
 
                 return objects;

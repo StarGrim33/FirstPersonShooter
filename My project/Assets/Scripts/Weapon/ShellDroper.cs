@@ -29,9 +29,9 @@ public class ShellDroper : MonoBehaviour
 
     private void Shooting()
     {
-        var instance = _pool.GetObject(PoolableObjects.Shell);
-        var shell = Instantiate(_shellPrefab, _shellTransform.position, _shellTransform.rotation);
-        shell.velocity = _shellTransform.forward * _shellSpeed;
-        shell.angularVelocity = Vector3.up * _shellAngular;
+        Rigidbody instance = _pool.GetShellRigidbody();
+        instance.transform.position = _shellTransform.position;
+        instance.velocity = _shellTransform.forward * _shellSpeed;
+        instance.angularVelocity = Vector3.up * _shellAngular;
     }
 }

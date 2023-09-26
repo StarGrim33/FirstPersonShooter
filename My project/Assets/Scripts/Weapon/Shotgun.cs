@@ -46,8 +46,8 @@ public class Shotgun : MonoBehaviour, IWeapon
         if(Physics.Raycast(startPosition, direction, out RaycastHit hit, 50, _layerMask, QueryTriggerInteraction.Ignore))
         {
             var decal = _objectPool.GetObject(PoolableObjects.Decal);
-            decal.gameObject.transform.position = hit.point + hit.normal * _offSet;
-            decal.gameObject.transform.LookAt(hit.point);
+            decal.transform.position = hit.point + hit.normal * _offSet;
+            decal.transform.LookAt(hit.point);
             decal.transform.rotation = Quaternion.LookRotation(hit.normal);
 
             if (hit.collider.TryGetComponent<IDamageable>(out IDamageable component))

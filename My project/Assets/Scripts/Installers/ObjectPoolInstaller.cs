@@ -3,14 +3,13 @@ using Zenject;
 
 public class ObjectPoolInstaller : MonoInstaller
 {
-    [SerializeField] private GameObject _decalPrefab;
     [SerializeField, Range(1, 20)] private int _decalAmount;
-    [SerializeField] private GameObject _shellPrefab;
     [SerializeField, Range(1, 20)] private int _shellAmount;
+    [SerializeField] private PoolableFactory _poolFactory;
 
     public override void InstallBindings()
     {
-        Container.Bind<PoolableFactory>().AsSingle().WithArguments(_decalPrefab, _shellPrefab);
-        Container.Bind<ObjectPool>().AsSingle().WithArguments(_shellPrefab, _shellAmount).WhenInjectedInto<Shotgun>();
+        Container.Bind<PoolableFactory>().FromInstance(_poolFactory);
+        Container.Bind<ObjectPool>().AsSingle().WithArguments(_poolFactory, _decalAmount, _shellAmount);
     }
 }
