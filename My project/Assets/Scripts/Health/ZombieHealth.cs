@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 
-public class BoxHealth : AbstractHealth, IDamageable
+[RequireComponent(typeof(RagdollHandler))]
+public class ZombieHealth : AbstractHealth, IDamageable
 {
     private RagdollHandler _ragdoll;
 
@@ -38,9 +39,9 @@ public class BoxHealth : AbstractHealth, IDamageable
         if (damage <= 0)
             throw new ArgumentException("Value cannot be negative", nameof(damage));
 
-        CurrentHealth -= damage;
+        CurrentHealth -= damage - _armor;
         Debug.Log($"Health is {CurrentHealth}");
     }
 
-    public bool IsApplyableForce() => true;
+    public bool IsApplyableForce() => false;
 }

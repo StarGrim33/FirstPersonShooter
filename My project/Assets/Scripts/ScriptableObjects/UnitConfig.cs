@@ -9,7 +9,7 @@ public class UnitConfig : ScriptableObject
     [Header("[Common]"), Space]
     [SerializeField, Min(0)] private float _health;
     [SerializeField, Min(0)] private float _speed;
-    [SerializeField, Min(0)] private float _armor;
+    [SerializeField, Range(0, 10)] private int _armor;
     [SerializeField, Min(0)] private float _strafeSpeed;
     [SerializeField, Min(0)] private float _jumpForce;
     [SerializeField, Min(0)] private float _jumpCooldown;

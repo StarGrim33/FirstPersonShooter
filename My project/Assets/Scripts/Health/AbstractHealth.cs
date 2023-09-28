@@ -6,11 +6,13 @@ public abstract class AbstractHealth : MonoBehaviour
 
     protected float _maxHealth;
     protected float _currenHealth;
+    protected float _armor;
 
     protected void OnEnable()
     {
         _maxHealth = _unit.Config.Health;
         _currenHealth = _maxHealth;
+        _armor = _unit.Config.Armor;
     }
 
     protected virtual void Die() { }

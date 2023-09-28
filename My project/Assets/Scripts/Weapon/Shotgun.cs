@@ -11,6 +11,7 @@ public class Shotgun : MonoBehaviour, IWeapon
 
     private ObjectPool _objectPool;
     private int _damage = 40;
+    private int _criticalDamage = 100;
     private int _ammo = 6;
     private int _currentAmmo;
     private int _impactForce = 8;
@@ -34,7 +35,7 @@ public class Shotgun : MonoBehaviour, IWeapon
     private void Start()
     {
         _currentAmmo = _ammo;
-        AmmoChanged?.Invoke(_currentAmmo); 
+        AmmoChanged?.Invoke(_currentAmmo);
     }
 
     public void PerformShot(Vector3 startPosition, Vector3 direction)
@@ -43,18 +44,28 @@ public class Shotgun : MonoBehaviour, IWeapon
         AmmoChanged?.Invoke(CurrentAmmo);
         Shooting?.Invoke();
 
-        if(Physics.Raycast(startPosition, direction, out RaycastHit hit, 50, _layerMask, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(startPosition, direction, out RaycastHit hit, 50, _layerMask, QueryTriggerInteraction.Ignore))
         {
             var decal = _objectPool.GetObject(PoolableObjects.Decal);
             decal.transform.position = hit.point + hit.normal * _offSet;
             decal.transform.LookAt(hit.point);
             decal.transform.rotation = Quaternion.LookRotation(hit.normal);
+            Debug.DrawRay(startPosition, direction, Color.red);
 
             if (hit.collider.TryGetComponent<IDamageable>(out IDamageable component))
             {
                 component.TakeDamage(_damage);
-                //var victim = hit.rigidbody;
-                //victim.AddForceAtPosition(direction * _impactForce, hit.point, ForceMode.Impulse);
+
+                if (component.IsApplyableForce())
+                {
+                    var victim = hit.rigidbody;
+                    victim.AddForceAtPosition(direction * _impactForce, hit.point, ForceMode.Impulse);
+                }
+            }
+
+            if(hit.collider.TryGetComponent<Headshot>(out Headshot headshot))
+            {
+                headshot.TakeHeadshot(_criticalDamage);
             }
         }
     }
