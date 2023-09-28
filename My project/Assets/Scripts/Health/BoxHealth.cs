@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BoxHealth : AbstractHealth, IDamageable
 {
+    private RagdollHandler _ragdoll;
+
     public float MaxHealth => _maxHealth;
 
     public float CurrentHealth
@@ -20,9 +22,15 @@ public class BoxHealth : AbstractHealth, IDamageable
         }
     }
 
+    private void Awake()
+    {
+        _ragdoll = GetComponent<RagdollHandler>();
+    }
+
     protected override void Die()
     {
-        Destroy(gameObject);
+        if(_ragdoll != null)
+        _ragdoll.ActivateRagdoll();
     }
 
     public void TakeDamage(int damage)

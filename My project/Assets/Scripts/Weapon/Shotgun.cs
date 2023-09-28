@@ -10,7 +10,7 @@ public class Shotgun : MonoBehaviour, IWeapon
     [SerializeField] private float _offSet;
 
     private ObjectPool _objectPool;
-    private int _damage = 10;
+    private int _damage = 40;
     private int _ammo = 6;
     private int _currentAmmo;
     private int _impactForce = 8;
@@ -53,8 +53,8 @@ public class Shotgun : MonoBehaviour, IWeapon
             if (hit.collider.TryGetComponent<IDamageable>(out IDamageable component))
             {
                 component.TakeDamage(_damage);
-                var victim = hit.rigidbody;
-                victim.AddForceAtPosition(direction * _impactForce, hit.point, ForceMode.Impulse);
+                //var victim = hit.rigidbody;
+                //victim.AddForceAtPosition(direction * _impactForce, hit.point, ForceMode.Impulse);
             }
         }
     }
