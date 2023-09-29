@@ -33,7 +33,7 @@ public class AiNavigator : MonoBehaviour
             _timer.Time = _maxTime;
         }
 
-        _animator.SetFloat("Speed", _ai.velocity.magnitude);
+        _animator.SetFloat("Speed", _ai.velocity.magnitude * Time.deltaTime);
     }
 
     public void Stop()

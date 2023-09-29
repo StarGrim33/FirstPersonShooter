@@ -23,6 +23,8 @@ public class ZombieHealth : AbstractHealth, IDamageable
         }
     }
 
+    public bool IsAlive => CurrentHealth > 0;
+
     private void Awake()
     {
         _ragdoll = GetComponent<RagdollHandler>();
