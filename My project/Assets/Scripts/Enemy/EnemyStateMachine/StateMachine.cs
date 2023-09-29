@@ -6,18 +6,21 @@ using UnityEngine.AI;
 public class StateMachine : MonoBehaviour
 {
     [SerializeField] private List<Transform> _patrolPoints = new List<Transform>();
-
+    [SerializeField] private Transform _player;
+    [SerializeField] private PlayerHealth _playerHelth;
     private Dictionary<Type, IStateSwitcher> _states;
     private IStateSwitcher _currentState;
     private Animator _animator;
     private NavMeshAgent _agent;
     private ZombieHealth _health;
+    private Transform _npc;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         _health = GetComponent<ZombieHealth>();
+        _npc = transform;
     }
 
     private void Start()
@@ -36,10 +39,10 @@ public class StateMachine : MonoBehaviour
     {
         _states = new Dictionary<Type, IStateSwitcher>
         {
-            [typeof(IdleState)] = new IdleState(this, _animator),
-            [typeof(PatrolState)] = new PatrolState(_patrolPoints, transform, this, _animator, _agent),
-            //[typeof(RunningState)] = new RunningState(this, _animator),
-            //[typeof(AttackState)] = new()
+            [typeof(IdleState)] = new IdleState(this),
+            [typeof(PatrolState)] = new PatrolState(_patrolPoints, _npc, this, _animator, _agent),
+            [typeof(RunningState)] = new RunningState(this, _animator, _npc, _player, _agent, _npc),
+            [typeof(AttackState)] = new AttackState(this, _animator, _playerHelth, _player, _npc)
         };
     }
 

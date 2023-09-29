@@ -5,7 +5,6 @@ public class RagdollHandler : MonoBehaviour
 {
     private Rigidbody[] _rigigbodies;
     private Animator _animator;
-    private AiNavigator _aiNavigator;
     private NavMeshAgent _agent;
     private CapsuleCollider _capsuleCollider;
 
@@ -13,7 +12,6 @@ public class RagdollHandler : MonoBehaviour
     {
         _rigigbodies = GetComponentsInChildren<Rigidbody>();
         _animator = GetComponent<Animator>();
-        _aiNavigator = GetComponent<AiNavigator>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _agent = GetComponent<NavMeshAgent>();
         DeactivateRagdoll();

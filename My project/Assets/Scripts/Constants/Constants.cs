@@ -10,4 +10,6 @@ public static class Constants
     #endregion
 
     public static string isReloading = "isReloading";
+    public static string Speed = "Speed";
+    public static string IsAttacking = "IsAttacking";
 }

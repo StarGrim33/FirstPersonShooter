@@ -13,6 +13,7 @@ public class PatrolState : IStateSwitcher
     private int _currentPointIndex = 0;
     private float _delayTime = 2f;
     private float _time = 0;
+    private float _walkSpeed = 0.6f;
 
     public PatrolState(List<Transform> points, Transform npcTransform, StateMachine machine, Animator animator, NavMeshAgent navMeshAgent)
     {
@@ -25,8 +26,8 @@ public class PatrolState : IStateSwitcher
 
     public void Enter()
     {
-        _navMeshAgent.speed = 0.6f;
-        _animator.SetFloat("Speed", _navMeshAgent.speed);
+        _navMeshAgent.speed = _walkSpeed;
+        _animator.SetFloat(Constants.Speed, _navMeshAgent.speed);
         Debug.Log("Entered to PatrolState");
     }
 
@@ -57,7 +58,7 @@ public class PatrolState : IStateSwitcher
                     if (_currentPointIndex >= _movePoints.Count)
                     {
                         _currentPointIndex = 0;
-                        //_machine.SetRunningState();
+                        _machine.SetRunningState();
                     }
                 }
             }
