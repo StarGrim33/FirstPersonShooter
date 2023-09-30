@@ -10,6 +10,7 @@ public class Shotgun : MonoBehaviour, IWeapon
     [SerializeField] private float _offSet;
 
     private ObjectPool _objectPool;
+    private DecalSpawner _decalSpawner;
     private int _damage = 40;
     private int _criticalDamage = 100;
     private int _ammo = 6;
@@ -32,6 +33,11 @@ public class Shotgun : MonoBehaviour, IWeapon
         _objectPool = objectPool;
     }
 
+    private void Awake()
+    {
+        _decalSpawner = new DecalSpawner();
+    }
+
     private void Start()
     {
         _currentAmmo = _ammo;
@@ -46,12 +52,6 @@ public class Shotgun : MonoBehaviour, IWeapon
 
         if (Physics.Raycast(startPosition, direction, out RaycastHit hit, 50, _layerMask, QueryTriggerInteraction.Ignore))
         {
-            var decal = _objectPool.GetObject(PoolableObjects.Decal);
-            decal.transform.position = hit.point + hit.normal * _offSet;
-            decal.transform.LookAt(hit.point);
-            decal.transform.rotation = Quaternion.LookRotation(hit.normal);
-            Debug.DrawRay(startPosition, direction, Color.red);
-
             if (hit.collider.TryGetComponent<IDamageable>(out IDamageable component))
             {
                 component.TakeDamage(_damage);
@@ -62,11 +62,17 @@ public class Shotgun : MonoBehaviour, IWeapon
                     victim.AddForceAtPosition(direction * _impactForce, hit.point, ForceMode.Impulse);
                 }
             }
-
-            if(hit.collider.TryGetComponent<Headshot>(out Headshot headshot))
+            else if (hit.collider.TryGetComponent<Headshot>(out Headshot headshot))
             {
                 headshot.TakeHeadshot(_criticalDamage);
             }
+            else if (hit.collider.TryGetComponent<Destructible>(out Destructible destructible))
+            {
+                destructible.Destruct();
+            }
+
+            var layer = hit.collider.gameObject.layer;
+            _decalSpawner.SpawnDecal(layer, _objectPool, hit, _offSet);
         }
     }
 

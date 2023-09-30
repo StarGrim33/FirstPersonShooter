@@ -28,12 +28,12 @@ public class ObjectPool
         switch (poolableObjects) 
         { 
             case PoolableObjects.Decal:
-                var decal = _decals.FirstOrDefault(x => x != null);
+                var decal = _decals.FirstOrDefault(x => !x.activeSelf);
                 decal.SetActive(true);
                 return decal;
 
             case PoolableObjects.Shell:
-                var instance = _bulletShells.FirstOrDefault(x => x != null);
+                var instance = _bulletShells.FirstOrDefault(x => !x.activeSelf);
                 instance.SetActive(true);
                 return instance;
         }
